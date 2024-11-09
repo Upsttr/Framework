@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -50,6 +50,9 @@ jobs:
           mkdir -p allure-report
           allure generate target/allure-results -o allure-report
         continue-on-error: true
+
+      - name: List Allure Report Files Before Upload
+        run: ls -R allure-report
 
       - name: Upload Allure Report as artifact
         uses: actions/upload-pages-artifact@v3
