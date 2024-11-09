@@ -42,7 +42,7 @@ jobs:
       run: mvn clean install
 
     - name: Run Tests
-      run: mvn test --fail-never
+      run: mvn -Dmaven.test.failure.ignore=true test
 
     - name: Generate Allure Report
       run: |
