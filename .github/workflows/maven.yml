@@ -46,9 +46,10 @@ jobs:
 
     - name: Install Allure
       run: |
-          sudo apt-add-repository ppa:qameta/allure -y
-          sudo apt-get update
-          sudo apt-get install allure -y
+        curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/download/2.20.1/allure-2.20.1.zip
+        sudo apt-get install -y unzip
+        unzip allure.zip -d /opt/allure
+        sudo ln -s /opt/allure/allure-2.20.1/bin/allure /usr/bin/allure
 
     - name: Generate Allure Report
       run: |
