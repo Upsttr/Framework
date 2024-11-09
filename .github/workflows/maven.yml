@@ -44,6 +44,12 @@ jobs:
     - name: Run Tests
       run: mvn -Dmaven.test.failure.ignore=true test
 
+    - name: Install Allure
+      run: |
+          sudo apt-add-repository ppa:qameta/allure -y
+          sudo apt-get update
+          sudo apt-get install allure -y
+
     - name: Generate Allure Report
       run: |
         mkdir -p allure-report
