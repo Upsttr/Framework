@@ -49,11 +49,12 @@ jobs:
 
       - name: Install ChromeDriver
         run: |
-        sudo rm -f /usr/bin/chromedriver  
-        CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip -d /usr/bin/
-        sudo chmod +x /usr/bin/chromedriver
+          mkdir -p $HOME/chromedriver  
+          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip -d $HOME/chromedriver/
+          sudo chmod +x $HOME/chromedriver/chromedriver  
+          echo "PATH=$PATH:$HOME/chromedriver" >> $GITHUB_ENV  
 
 
       - name: Run Tests
