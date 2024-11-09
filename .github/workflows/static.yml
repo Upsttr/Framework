@@ -1,38 +1,35 @@
-name: Report
+# Workflow для публикации Allure отчета на GitHub Pages
+name: Deploy Allure Report to Pages
 
 on:
   push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
 
       - name: Build with Maven
         run: mvn clean install
@@ -47,20 +44,19 @@ jobs:
       - name: Run Tests
         run: mvn -Dmaven.test.failure.ignore=true test
 
+
       - name: Generate Allure Report
         run: |
           mkdir -p allure-report
           allure generate target/allure-results -o allure-report
         continue-on-error: true
 
-      - name: List Allure Report Files
-        run: ls -R allure-report
-
-      - name: Upload Allure Report for Pages
+      - name: Upload Allure Report as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './allure-report'
+          path: './allure-report'  # Загрузка только папки allure-report
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
