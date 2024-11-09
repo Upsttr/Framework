@@ -41,8 +41,25 @@ jobs:
           unzip allure.zip -d /opt/allure
           sudo ln -s /opt/allure/allure-2.20.1/bin/allure /usr/bin/allure
 
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Install ChromeDriver
+        run: |
+          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip -d /usr/bin/
+
       - name: Run Tests
-        run: mvn -Dmaven.test.failure.ignore=true test
+        run: |
+          mvn -Dmaven.test.failure.ignore=true \
+              -Dselenide.browser=chrome \
+              -Dselenide.headless=true \
+              -Dchromeoptions.args="--no-sandbox --disable-dev-shm-usage --disable-gpu --remote-allow-origins=*" \
+              test
 
 
       - name: Generate Allure Report
