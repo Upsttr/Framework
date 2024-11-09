@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Report
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Разрешение на запись в репозиторий
+  contents: write
   pages: write
   id-token: write
 
@@ -56,8 +56,11 @@ jobs:
       - name: List Allure Report Files
         run: ls -R allure-report
 
-      - name: Deploy Allure Report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Allure Report for Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          path: './allure-report'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
