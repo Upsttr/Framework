@@ -1,4 +1,4 @@
-name: Tests with report
+name: Java CI with Maven
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write  # Разрешение на запись в репозиторий
   pages: write
   id-token: write
 
@@ -54,7 +54,7 @@ jobs:
         continue-on-error: true
 
       - name: List Allure Report Files
-        run: ls -R allure-report  # Проверка содержимого папки отчета
+        run: ls -R allure-report
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
