@@ -3,10 +3,10 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main   # Запуск при коммите в main ветку
+      - master   # Запуск при коммите в master ветку
   pull_request:
     branches:
-      - main   # Запуск при каждом Pull Request в main ветку
+      - master   # Запуск при каждом Pull Request в master ветку
   workflow_dispatch:  # Позволяет запускать pipeline вручную через GitHub Actions
 
 jobs:
