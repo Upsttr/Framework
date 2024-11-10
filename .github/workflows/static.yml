@@ -1,3 +1,4 @@
+# Workflow для публикации Allure отчета на GitHub Pages
 name: Autotests
 
 on:
@@ -9,6 +10,10 @@ permissions:
   contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -36,6 +41,7 @@ jobs:
           unzip allure.zip -d /opt/allure
           sudo ln -s /opt/allure/allure-2.20.1/bin/allure /usr/bin/allure
 
+
       - name: Install Chrome
         run: |
           sudo apt-get update
@@ -50,8 +56,6 @@ jobs:
           sudo chmod +x $HOME/chromedriver/chromedriver  
           echo "PATH=$PATH:$HOME/chromedriver" >> $GITHUB_ENV  
 
-      - name: Clean Allure Results Directory
-        run: rm -rf target/allure-results && mkdir -p target/allure-results
 
       - name: Run Tests
         run: |
@@ -61,8 +65,6 @@ jobs:
               -Dchromeoptions.args="--no-sandbox --disable-dev-shm-usage --disable-gpu --remote-allow-origins=*" \
               test
 
-      - name: Check Allure JSON Files
-        run: find target/allure-results -name "*.json"
 
       - name: Generate Allure Report
         run: |
@@ -74,10 +76,11 @@ jobs:
         run: ls -R allure-report
 
       - name: Upload Allure Report as artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './allure-report'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
