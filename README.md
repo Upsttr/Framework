@@ -39,18 +39,21 @@
 mvn test
 ```
 
+## Запуск Тестов через Github
+1. Клонируйте репозиторий.
+2. Перейдите во раздел Actions.
+3. Выберите workflow Deploy Allure Report to Pages.
+4. Нажмите на кнопку Run workflow. 
+5. По итогу сборки появится ссылка на отчет.
+
 ## Создание отчета Allure
 
 1. Запустите тесты, чтобы получить результаты для Allure.
 2. Сгенерируйте отчет Allure:
 
    ```bash
-    allure serve
+    allure serve target/allure-results
    ```
-
-## Конфигурация
-
-- Обновите настройки базы данных и среды в `src/main/java/config/config.properties`.
 
 ## Автор
 
