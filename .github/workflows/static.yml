@@ -1,5 +1,5 @@
 # Workflow для публикации Allure отчета на GitHub Pages
-name: Deploy Allure Report to Pages
+name: Autotests
 
 on:
   push:

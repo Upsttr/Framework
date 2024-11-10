@@ -1,5 +1,5 @@
-
-name: Java CI with Maven
+# Workflow для отладки
+name: Java CI 
 
 on:
   push:

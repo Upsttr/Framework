@@ -42,9 +42,10 @@ mvn test
 ## Запуск Тестов через Github
 1. Клонируйте репозиторий.
 2. Перейдите во раздел Actions.
-3. Выберите workflow Deploy Allure Report to Pages.
+3. Выберите workflow Autotests.
 4. Нажмите на кнопку Run workflow. 
 5. По итогу сборки появится ссылка на отчет.
+6. Так же имеется workflow для отладки Java CI.
 
 ## Создание отчета Allure
 
