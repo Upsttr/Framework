@@ -28,7 +28,7 @@ public class LoginTest extends ScreenshotMaker {
                 .login("locked_out_user", "secret_sauce");
         $x("//*[@id='login_button_container']")
                 .shouldBe(Condition.visible)
-                .shouldHave(Condition.text("Epic sadface: Sorry, this user has been locked out."));
+                .shouldHave(Condition.text("Epic sadface: Sorry, this user has been locked out!."));
     }
 
     @Test
