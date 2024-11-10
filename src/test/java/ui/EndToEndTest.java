@@ -15,7 +15,7 @@ public class EndToEndTest extends ScreenshotMaker {
     @Test
     @DisplayName("E2E тест для standard_user")
     public void testEndToEndStandardUser() {
-        successfulLogin("standard_user", "secret_sauce");
+        successfulLogin("standard_user!", "secret_sauce");
         addItemsToCart();
         goToCart();
         cartCheck();
