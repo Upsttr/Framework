@@ -92,7 +92,7 @@ public class EndToEndTest extends ScreenshotMaker {
     @Step("Проверка суммы")
     public void checkTotals() {
         CheckoutStep2Page checkoutStep2Page = new CheckoutStep2Page();
-        checkoutStep2Page.verifyTotalAmount("Total: $58.29");
+        checkoutStep2Page.verifyTotalAmount("Total: $58.299");
         checkoutStep2Page.clickFinish();
         String expectedUrl = "https://www.saucedemo.com/checkout-complete.html";
         webdriver().shouldHave(url(expectedUrl));
