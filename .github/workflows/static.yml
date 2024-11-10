@@ -1,4 +1,4 @@
-# Workflow для публикации Allure отчета на GitHub Pages
+# Workflow для запуска тестов и публикации Allure отчета на GitHub Pages
 name: Autotests
 
 on:
