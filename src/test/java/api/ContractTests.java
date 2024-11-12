@@ -33,21 +33,18 @@ public class ContractTests {
     @DisplayName("Запрашиваем список сотрудников")
     public void employeeListCheck() {
         EmployeeService.getEmployeesByCompanyId(companyId);
-        System.out.println("Получен список сотрудников компании: " + companyId);
     }
 
     @Test
     @DisplayName("Добавление сотрудника")
     public void addEmployeeCheck() {
         int id = EmployeeService.addNewEmployee(userToken, companyId);
-        System.out.println("Добавлен сотрудник " + id);
     }
 
     @Test
     @DisplayName("Создание компании")
     public void addCompanyCheck() {
         int companyId = CompanyService.createCompanyAndGetId(userToken);
-        System.out.println("Создана компания " + companyId);
     }
 
     @Test
@@ -56,7 +53,6 @@ public class ContractTests {
         int id = EmployeeService.addNewEmployee(userToken, companyId);
         Response response = EmployeeService.editEmployee(userToken, id);
         assertEquals(200, response.statusCode());
-        System.out.println("Данные сотрудника " + id + " были изменены");
     }
 
     @Test
@@ -64,6 +60,5 @@ public class ContractTests {
     public void getEmployeeInfo() {
         int id = EmployeeService.addNewEmployee(userToken, companyId);
         EmployeeService.getEmpInfo(id);
-        System.out.println("Получены данные о сотруднике " + id);
     }
 }

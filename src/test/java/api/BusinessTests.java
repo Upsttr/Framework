@@ -62,7 +62,6 @@ public class BusinessTests {
         assertTrue(ids.contains(emp1));
         assertTrue(ids.contains(emp2));
 
-        System.out.println("Список сотрудников компании " + companyId + ": " + response.getBody().asString());
     }
 
     // Тест провален. У пользователя не сменился номер телефона
@@ -148,7 +147,6 @@ public class BusinessTests {
         int unexistingEmpID = 19622554;
         Response response = EmployeeService.editEmployee(userToken, unexistingEmpID);
         assertFalse(response.statusCode() == 200 || response.statusCode() == 201);
-        System.out.println("Вернулся статус код " + response.statusCode());
     }
 
     // Тест провален. Редактирование без отправки данных дает код 200
