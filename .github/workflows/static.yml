@@ -75,6 +75,9 @@ jobs:
       - name: List Allure Report Files Before Upload
         run: ls -R allure-report
 
+      - name: Disable Jekyll for GitHub Pages
+        run: touch allure-report/.nojekyll
+
       - name: Upload Allure Report as artifact
         uses: actions/upload-pages-artifact@v3
         with:
