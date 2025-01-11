@@ -15,7 +15,7 @@ public class LoginTest extends ScreenshotMaker {
     public void testSuccessfulLogin() {
         LoginPage loginPage = new LoginPage();
         loginPage.openPage()
-                .login("standard_user1", "secret_sauce");
+                .login("standard_user", "secret_sauce");
         String expectedUrl = "https://www.saucedemo.com/inventory.html";
         webdriver().shouldHave(WebDriverConditions.url(expectedUrl));
     }
