@@ -1,3 +1,4 @@
+# Workflow для запуска тестов и публикации Allure отчета на GitHub Pages
 name: Autotests
 
 on:
@@ -40,6 +41,7 @@ jobs:
           unzip allure.zip -d /opt/allure
           sudo ln -s /opt/allure/allure-2.20.1/bin/allure /usr/bin/allure
 
+
       - name: Install Chrome
         run: |
           sudo apt-get update
@@ -54,6 +56,7 @@ jobs:
           sudo chmod +x $HOME/chromedriver/chromedriver  
           echo "PATH=$PATH:$HOME/chromedriver" >> $GITHUB_ENV  
 
+
       - name: Run Tests
         run: |
           mvn -Dmaven.test.failure.ignore=true \
@@ -62,19 +65,16 @@ jobs:
               -Dchromeoptions.args="--no-sandbox --disable-dev-shm-usage --disable-gpu --remote-allow-origins=*" \
               test
 
+
       - name: Generate Allure Report
         run: |
           mkdir -p allure-report
           allure generate --clean target/allure-results -o allure-report
+        continue-on-error: true
 
-      - name: Modify Allure Index.html to prevent caching
-        run: |
-          sed -i 's|<link rel="stylesheet" href="|<link rel="stylesheet" href="?v=${{ github.run_number }} "|g' allure-report/index.html
-          sed -i 's|<script src="|<script src="?v=${{ github.run_number }} "|g' allure-report/index.html
+      - name: List Allure Report Files Before Upload
+        run: ls -R allure-report
 
-      - name: Copy Cache-Control headers
-        run: |
-          cp _headers allure-report/
 
       - name: Upload Allure Report as artifact
         uses: actions/upload-pages-artifact@v3
@@ -84,3 +84,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
